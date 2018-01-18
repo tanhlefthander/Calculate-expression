@@ -4,9 +4,23 @@
 #include <stack>
 #include <sstream>
 #include <algorithm>
+#include <math.h>
 using namespace std;
 
-
+float toInt (string s){
+    stringstream ss;
+    ss<<s;
+    float d;
+    ss>>d;
+    return d;
+}
+string toString(float d){
+    stringstream ss;
+    ss<<d;
+    string s;
+    ss>>s;
+    return s;
+}
 int getPriority(char &c){ // lấy độ ưu tiên của toán tử
     if(c=='+' || c=='-' ) return 1;
     if(c=='*' || c=='/' || c== '%') return 2;
@@ -67,6 +81,16 @@ int checkBracket(string &a){ // kiểm tra ngoặc trả về vị trí ngoặc 
     if(!brackets.empty()) return j;
     return -1;
 }
+string cal(string a,string b,char c){
+    float num1 = toInt(a), num2= toInt(b);
+    if(c=='+') return toString(num1 + num2);
+    if(c=='-') return toString(num1 - num2);
+    if(c=='*') return toString(num1 * num2);
+    if(c=='/') return toString(num1 / num2);
+    if(c=='%') return toString((long)num1 % (long)num2);
+    if(c=='^') return toString(pow(num1,num2));
+    return "0";
+}
 void addNumber(stack< string > &sSuffix, string &number){
     sSuffix.push(number);
     number= string();
@@ -76,7 +100,8 @@ void addSuffix (stack< char > &sOperator, stack< string > &sSuffix){ // lấy d�
     string number2= sSuffix.top(); sSuffix.pop();
     string number1= sSuffix.top(); sSuffix.pop();
     string str = number1 +' '+ number2 +' '+ t;
-    //cout<<str<<endl;
+    cout<<str<<endl;
+    str = cal(number1, number2, t);
     sSuffix.push(str);
 }
 string toSuffix (string &a){

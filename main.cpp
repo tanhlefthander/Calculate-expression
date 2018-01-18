@@ -5,7 +5,7 @@
 #include "Expression.h"
 using namespace std;
 int main(){
-    string a= "65*((866-98)*67^9)/87+76";
+    string a= "1+2/8*4";
     calculate(a);
     return 0;
 }
