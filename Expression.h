@@ -51,10 +51,15 @@ int checkBracket(string &a){ // kiểm tra ngoặc trả về vị trí ngoặc 
     int j=0;
     for(int i=0; i< a.size() ; i++){
         if(a[i] == '('){
+            if(i!=0 && isDigit(a[i-1])) return i; // 8+9(...
+            if(isOperator(a[i+1])) return i; // (+
             if(brackets.empty()) j= i;
             brackets.push(a[i]);
         }
         if(a[i] == ')'){
+            if(i!=0 && isDigit(a[i+1])) return i;// )8
+            if(isOperator(a[i-1])) return i;// +)
+            if(a[i-1] == '(') return i; // ()
             if(brackets.empty()) return i;
             brackets.pop();
         }
