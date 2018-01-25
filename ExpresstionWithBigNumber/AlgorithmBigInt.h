@@ -12,6 +12,12 @@ char changeD(char d){ // đổi dấu
     if(d=='+') return '-';
     return '+';
 }
+void balance (string &a, string &b){ // làm cho 2 số thành cùng size bằng cách thêm những số 0 đàng trc số bé hơn
+    int sz_a = a.size(), sz_b= b.size();
+    if(sz_a > sz_b) b= string(sz_a- sz_b,'0') +b;
+    else a= string(sz_b- sz_a,'0') +a;
+}
+
 int cmp (string a, string b){ // so sánh 2 số
     // O(n)
     int szA= a.size(), szB= b.size();
@@ -25,9 +31,7 @@ int cmp (string a, string b){ // so sánh 2 số
 }
 string add (string a, string b){ // tổng 2 số
     // O(n)
-    int sz_a = a.size(), sz_b= b.size();
-    if(sz_a > sz_b) b= string(sz_a- sz_b,'0') +b;
-    else a= string(sz_b- sz_a,'0') +a;
+    balance(a,b);
     int sz= a.size(), flag=0;
     for(int i=sz-1; i>=0;i--){
         a[i]= a[i] + b[i] + flag - '0';
@@ -40,11 +44,9 @@ string add (string a, string b){ // tổng 2 số
     if(flag==1) a = "1" + a;
     return a;
 }
-string sub(string a, string b){ // trừ
+string sub(string a, string b){ // trừ , mặc định trả về kết quả dương
     // O(n)
-    int sz_a = a.size(), sz_b= b.size();
-    if(sz_a > sz_b) b= string(sz_a- sz_b,'0') +b;
-    else a= string(sz_b- sz_a,'0') +a;
+    balance(a,b);
     if(a < b) swap(a,b);
     int sz= a.size(), flag=0;
     for(int i=sz-1; i>=0;i--){
@@ -98,7 +100,7 @@ string mulChar(string a, char c){ // nhân 1 big number với số có 1 chữ s
     return a;
 }
 string divide10 (string a){
-    if(cmp(a,"10")== -1) return "0";
+    if(a.size() <= 1) return "0";
     return string(a.begin(), a.end()-1);
 }
 string mul10(string a){
@@ -108,25 +110,12 @@ string mul10(string a){
 string mul(string a, string b){ // thuật toán nhân
     // O(n*m)
     string kq;
-    if(a.size()< b.size())
-        swap(a,b);
+    if(a.size()< b.size()) swap(a,b);
     if(b.size()== 1 ) return mulChar(a,b[0]);
     kq= mul(a, divide10(b));
     kq= mul10(kq); // nhân 10
     kq= add(kq,mulChar(a,b[b.size()-1]));
     //cout<<"mul "<<a<<" "<<b<<" "<<kq<<endl;
-    return kq;
-}
-string mulLogb(string a, string b){ // thuật toán nhân băng cách giảm dần đi 2 l
-    // O(nlogb)
-    string kq;
-    if(a.size()< b.size())
-        swap(a,b);
-    if(b=="1") return a;
-    if(b=="0") return "0";
-    kq= mulLogb(a, divide2(b));
-    kq= add(kq,kq);
-    if(!isEven(b)) kq= add(kq,a);
     return kq;
 }
 QR preDivide(string a, string b) // phép chia nhanh 2 số gần bằng nhau ( a > b và a.size == b.size hoặc a.size == b.size + 1)
@@ -166,34 +155,17 @@ QR divide(string a, string b){
     if(i == 0) return QR(res,x);
     return QR(string(res.begin()+ i, res.end()),x);
 }
-string pow2(string a, string b){ // a^b ý tưởng giảm giần mũ đi 2 lần
-    //O(n*m*log b)
+string pow(string a,string b){
+    // a^b ý tưởng giảm giần mũ đi 2 lần
+    //O(n*m*log b) // log b phep nhan
     //cout<<a<<" "<<b<<endl;
-    if(b=="0") return "1";
     if(b=="2") return mul(a,a);
     if(b=="1") return a;
-    string x= pow2(a,divide2(b));
+    string x= pow(a,divide2(b));
     x= mul(x,x);
     if(!isEven(b)) x= mul(x,a);
     //cout<<a<<" "<<b<<" "<<x<<endl;
-    a.clear();
-    b.clear();
     return x;
-}
-string pow10(string a, string b){ // a^b ý tưởng giảm dần mũ đi 10 lần
-    //O(n*m*m*log10)
-    if(cmp(b,"10")== 0 ||b.size()== 1 ) return pow2(a,b);
-    string x= pow10(a,divide10(b));
-    x= pow2(x,"10");
-    char c = b[b.size()-1];
-    if(c!='0') x= mul(x,pow2(a,string()+c));
-    //cout<<a<<" "<<b<<" "<<x<<endl;
-    a.clear();
-    b.clear();
-    return x;
-}
-string pow(string a,string b){
-    return pow10(a,b);
 }
 string randomChar( int length){
     /* initialize random seed: */

@@ -85,18 +85,12 @@ BigFraction cal(BigFraction a,BigFraction b,char c){
     if(c == '.') return getFromDouble(a.toString()+ "." +b.toString());
     return BigFraction();
 }
-void addNumber(stack< string > &sSuffix, stack< BigFraction > &sNumber, string &number){
-    sSuffix.push(number);
+void addNumber(stack< BigFraction > &sNumber, string &number){
     sNumber.push(BigFraction(number));
     number= string();
 }
-void addSuffix (stack< char > &sOperator, stack< string > &sSuffix, stack< BigFraction > &sNumber){ // lấy dấu và 2 số trong stack để tại thành 1 biểu thức hậu tố
+void addSuffix (stack< char > &sOperator, stack< BigFraction > &sNumber){ // lấy dấu và 2 số trong stack để tại thành 1 biểu thức hậu tố
     char t = sOperator.top(); sOperator.pop();
-    string number2= sSuffix.top(); sSuffix.pop();
-    string number1= sSuffix.top(); sSuffix.pop();
-    string str = number1 +' '+ number2 +' '+ t;
-    cout<<str<<endl;
-    sSuffix.push(str);
     BigFraction b1, b2, res;
     b2= sNumber.top(); sNumber.pop();
     b1= sNumber.top(); sNumber.pop();
@@ -106,7 +100,6 @@ void addSuffix (stack< char > &sOperator, stack< string > &sSuffix, stack< BigFr
 }
 BigFraction toSuffix (string &a){
     stack< char > sOperator;
-    stack< string > sSuffix; // hậu tố
     stack< BigFraction > sNumber; // stack số
     string number;
     for(int i= 0; i<a.size() ; i++){
@@ -115,26 +108,25 @@ BigFraction toSuffix (string &a){
             continue;
         }
         if(isOperator(a[i])){ // nếu là toán tử
-            if(number!= string()) addNumber(sSuffix,sNumber, number);
-                while(!sOperator.empty() && getPriority(sOperator.top()) >= getPriority(a[i])) addSuffix(sOperator, sSuffix, sNumber);
+            if(number!= string()) addNumber(sNumber, number);
+            while(!sOperator.empty() && getPriority(sOperator.top()) >= getPriority(a[i])) addSuffix(sOperator, sNumber);
             sOperator.push(a[i]);
             continue;
         }
         if(isBracket(a[i])){
-            if(number!= string()) addNumber(sSuffix,sNumber, number);
+            if(number!= string()) addNumber(sNumber, number);
             if(a[i]=='(') sOperator.push(a[i]);
             else{ // là ngoặc đóng
                 while(sOperator.top() != '(')
-                        addSuffix(sOperator, sSuffix, sNumber);
+                        addSuffix(sOperator, sNumber);
                 sOperator.pop(); // xóa ngoặc mở
             }
         }
     }
     if(number!= string())// xử lú số cuối cùng
-        addNumber(sSuffix, sNumber, number);
+        addNumber(sNumber, number);
     while(!sOperator.empty())// xử lý phần còn lại strong stack
-        addSuffix(sOperator, sSuffix, sNumber);
-    cout<<endl<<sSuffix.top()<<endl;
+        addSuffix(sOperator, sNumber);
     return sNumber.top();
 }
 bool checkError(string &a){

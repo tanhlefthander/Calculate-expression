@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1516504276 source:f:\github\calculate-expression\expresstionwithbignumber\main.cpp
+1516865031 source:f:\github\calculate-expression\expresstionwithbignumber\main.cpp
 	<iostream>
 	<string>
 	<cstdio>
@@ -26,7 +26,7 @@
 	"AlgorithmBigInt.h"
 	<sstream>
 
-1516463887 f:\github\calculate-expression\expresstionwithbignumber\algorithmbigint.h
+1516864664 f:\github\calculate-expression\expresstionwithbignumber\algorithmbigint.h
 	<iostream>
 	<string>
 	<algorithm>
