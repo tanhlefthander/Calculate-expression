@@ -148,7 +148,6 @@ QR divide(string a, string b){
         res+= qr.first;
         //cout<<x<<" "<<res<<endl;
     }
-
     if(x=="") x="0";
     for(i=0; i<res.size();i++)
         if(res[i]!= '0') break;
@@ -158,13 +157,11 @@ QR divide(string a, string b){
 string pow(string a,string b){
     // a^b ý tưởng giảm giần mũ đi 2 lần
     //O(n*m*log b) // log b phep nhan
-    //cout<<a<<" "<<b<<endl;
     if(b=="2") return mul(a,a);
     if(b=="1") return a;
     string x= pow(a,divide2(b));
     x= mul(x,x);
     if(!isEven(b)) x= mul(x,a);
-    //cout<<a<<" "<<b<<" "<<x<<endl;
     return x;
 }
 string randomChar( int length){
