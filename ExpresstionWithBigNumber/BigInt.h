@@ -47,7 +47,8 @@ public:
         bigInt= big;
     }
     void change(){ // đổi dấu
-        pon= changeD(pon);
+        if(pon=='+') pon= '-';
+        else pon = '+';
     }
     // kích thước
     long size(){
@@ -141,8 +142,8 @@ public:
     BigInt operator - (BigInt b){
         // a - b = a + (-b)
         // đổi dấu
-        char d= changeD(b.pon);
-        BigInt res= BigInt(pon, bigInt) + BigInt(d,b.bigInt);
+        b.change();
+        BigInt res= BigInt(pon, bigInt) + b;
         return res;
     }
     BigInt operator * (BigInt b){

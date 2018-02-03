@@ -38,6 +38,7 @@ private:
     void abridge(){//rút gọn
         pre();
         BigInt ucln = gcd(numer,denomin);
+        //cout<<ucln<<endl;
         numer/= ucln;
         denomin/= ucln;
     }
