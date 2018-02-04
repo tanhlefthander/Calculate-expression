@@ -6,9 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 using namespace std;
-/**
-    Quy ước n,m lần lượt là đô dài chuỗi a,b
-**/
+//Quy ước n,m lần lượt là đô dài chuỗi a,b
 //===================================//
 typedef pair< string , string > QR;
 /** Kiểu dữ liệu QR
@@ -73,10 +71,52 @@ string mulBy10(string a);
 **/
 //===================================//
 string mul(string a, string b);
-/**
-*
+/** < Chính > Hàm nhân 2 số lớn
+* Ý tưởng dùng đệ quy để đưa phép nhân 2 số lớn thành nhân số lớn với số có 1 kí tự (mulChar)
+* Công thức đệ quy : a * b = a * int(b/10) + a*(b%10)
+* Sử dụng hàm : mulChar , add , divideBy10
+* O(n.m)
 **/
 //===================================//
+QR preDivide(string a, string b);
+/** < Phụ > Hàm chia đơn 2 số lớn đơn giản
+* Ý tưởng : a = q*b + r, bớt a đi q lần b cho tới khi đc a < b , lúc này a là số dư, q là thương
+* Dùng hàm để tính các phép chia mà thương ko quá 10 vì thế rủi ro nhất là 9 phép trừ => O(n)
+**/
+//===================================//
+void addChar(string &a, char c);
+/** < Phụ > Hàm thêm 1 số vào cuối chuỗi sử dụng tham chiếu
+* Sử dụng như phép toán a= (a * 10 + c)
+* Trả về cặp số thương và dư
+**/
+//===================================//
+QR divide(string a, string b);
+/** < Chính > Phép chia 2 số lớn
+* a = q.b + r , a' = q'.b + r' với a' = int(a/10)
+* => với R = 10.r' + a%10 thì q = 10.q' + int(R/b) và r = R%b
+* O(n*m)
+**/
+//===================================//
+bool isEven(string a);
+/** < Phụ > Hàm kiểm tra số chẵn
+* Kiểm tra kí tự cuối cùng
+* O(1)
+**/
+//===================================//
+string divideBy2( string s);
+/** < Phụ > Hàm chia đôi
+* O(n)
+**/
+//===================================//
+string pow(string a,string b);
+/** < Chính > Hàm lũy thừa
+* Ý tưởng a^b = a^(int(b/2)) * a^(b%2)
+* O(m.n.logb)
+**/
+//===================================//
+string randomChar( int length);
+// Hàm lấy số lớn ngẫu nhiên có length chữ sô
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void balance (string &a, string &b){ // làm cho 2 số thành cùng size bằng cách thêm những số 0 đàng trc số bé hơn
     int sz_a = a.size(), sz_b= b.size();
     if(sz_a > sz_b) b= string(sz_a- sz_b,'0') +b;
