@@ -159,7 +159,7 @@ string add (string a, string b){ // tổng 2 số
 string sub(string a, string b){ // trừ , mặc định trả về kết quả dương
     // O(n)
     balance(a,b);
-    if(a < b) swap(a,b);
+    if(a< b) swap(a,b);
     int sz= a.size(), flag=0;
     for(int i=sz-1; i>=0;i--){
         a[i]= a[i] - b[i] - flag + '0';
@@ -241,12 +241,16 @@ QR divideS(string a, string b){
 }
 QR divide(string a, string b){
     string c, res;
+    if(b=="1") return QR(a,"0");
+    if(cmp(a,b)== -1) return QR("0",a);
     QR qr;
     for(int i=0;i<a.size();i++){
+        if(c=="0") c= string();
         c+=a[i];
         qr= preDivide(c,b);
         res+= qr.first[0];
         c= qr.second;
+
     }
     int i;
     for(i=0;i< res.size()-1;i++)

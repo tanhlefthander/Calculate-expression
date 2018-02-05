@@ -26,6 +26,7 @@ private:
     BigInt numer; // tử số
     BigInt denomin; // mẫu số
     BigInt gcd( BigInt x, BigInt y){// lấy ước chung lớn nhất
+        //cout<<x<<" "<<y<<endl;
         if(y == BigInt()) return x;
         return gcd(y, x%y);
     }
@@ -64,7 +65,9 @@ public:
     BigFraction operator - (BigFraction b){
         b.numer = numer * b.denomin - b.numer * denomin;
         b.denomin *= denomin;
+        //cout<<b<<endl;
         b.abridge();
+        //cout<<b<<endl;
         return b;
     }
     BigFraction operator * (BigFraction b){

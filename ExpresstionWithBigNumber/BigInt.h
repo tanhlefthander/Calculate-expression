@@ -144,6 +144,7 @@ public:
         // đổi dấu
         b.change();
         BigInt res= BigInt(pon, bigInt) + b;
+        //cout<<res<<endl;
         return res;
     }
     BigInt operator * (BigInt b){
