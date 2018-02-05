@@ -90,13 +90,19 @@ void addChar(string &a, char c);
 * Trả về cặp số thương và dư
 **/
 //===================================//
-QR divide(string a, string b);
+QR divideS(string a, string b);
 /** < Chính > Phép chia 2 số lớn
 * a = q.b + r , a' = q'.b + r' với a' = int(a/10)
 * => với R = 10.r' + a%10 thì q = 10.q' + int(R/b) và r = R%b
 * O(n*m)
 **/
 //===================================//
+QR divide(string a, string b);
+/** < Chính > Phép chia 2 số lớn
+* Ý tưởng chia bằng tay
+* O(n*m)
+**/
+//==================================//
 bool isEven(string a);
 /** < Phụ > Hàm kiểm tra số chẵn
 * Kiểm tra kí tự cuối cùng
@@ -221,7 +227,7 @@ void addChar(string &a, char c){
     if(a != "0") a.push_back(c);
     else a= string() + c;
 }
-QR divide(string a, string b){
+QR divideS(string a, string b){
     // n phép trừ
     if(b=="1") return QR(a,"0");
     if(cmp(a,b)== -1) return QR("0",a);
@@ -232,6 +238,21 @@ QR divide(string a, string b){
     r= qr.second;
     addChar(q, qr.first[0]);
     return QR(q,r);
+}
+QR divide(string a, string b){
+    string c, res;
+    QR qr;
+    for(int i=0;i<a.size();i++){
+        c+=a[i];
+        qr= preDivide(c,b);
+        res+= qr.first[0];
+        c= qr.second;
+    }
+    int i;
+    for(i=0;i< res.size()-1;i++)
+        if(res[i]!= '0') break;
+    if(i != 0) res= string(res.begin()+i,res.end());
+    return QR(res,c);
 }
 /// Phép lũy thừa
 bool isEven(string a){ // kiểm tra số chẵn
