@@ -43,6 +43,7 @@ string divideBy2( string s){ // chia đôi
 string pow(string a,string b){
     // a^b ý tưởng giảm giần mũ đi 2 lần
     //O(n*m*log b) // log b phep nhan
+    if(b=="0") return "1";
     if(b=="2") return mul(a,a);
     if(b=="1") return a;
     string x= pow(a,divideBy2(b));

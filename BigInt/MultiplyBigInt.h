@@ -36,6 +36,7 @@ string mulChar(string a, char c){ // nhân 1 big number với số có 1 chữ s
 string mul(string a, string b){ // thuật toán nhân
     // O(n*m)
     string kq;
+    if(a.size() == 1) return mulChar(b,a[0]);
     if(b.size()== 1 ) return mulChar(a,b[0]);
     kq= mul(a, divideBy10(b));
     kq= mulBy10(kq); // nhân 10

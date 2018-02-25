@@ -37,6 +37,7 @@ private:
         }
     }
     void abridge(){//rút gọn
+        if(numer == BigInt()) return;
         pre();
         BigInt ucln = gcd(numer,denomin);
         //cout<<ucln<<endl;
