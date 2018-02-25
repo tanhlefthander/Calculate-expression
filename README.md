@@ -20,7 +20,7 @@
   
   -**Expression**: Thư mục chứa các thư viện để biến đổi chuỗi biểu thức từ trung tố sáng hậu số
   
-  -**Calculate.h**: Chứa các hàm xủa lý biểu thức hậu tố để lấy kết quả
+  -**Calculate.h**: Chứa các hàm xử lý biểu thức hậu tố để lấy kết quả
   
   -**main.cpp**: Chạy chương trình
 
