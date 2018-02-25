@@ -21,6 +21,7 @@ void solve(stack< BigFraction > &sSuffix, char c){
     BigFraction a,b;
     a= sSuffix.Top(); sSuffix.Pop();
     b= sSuffix.Top(); sSuffix.Pop();
+    cout<< b <<" "<<c<<" "<<a<<" = ";
     a= cal(b,a,c);
     sSuffix.Push(a);
     cout<<a<<endl;
