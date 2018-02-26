@@ -1,7 +1,6 @@
 #include <string>
 #include <sstream>
 #include "BigInt.h"
-#include "AlgorithmBigInt.h"
 using namespace std;
 struct MixedNumber { // hỗn số a b/c
     char ch; // dấu âm hay dương
